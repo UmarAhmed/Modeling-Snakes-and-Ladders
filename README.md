@@ -1,2 +1,1 @@
-# Mathematical-Coding
-Python code used to solve math problems, create graphs and models, etc
+Used a Monte Carlo simulation to analyze the statistics and probabilites of a game of snakes and ladders.
