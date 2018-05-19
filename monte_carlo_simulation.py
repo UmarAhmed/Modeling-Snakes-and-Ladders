@@ -1,8 +1,8 @@
 import random
-import collections
 from matplotlib import pyplot as plt
  
-snakes_and_ladders = {98:78, 95:75, 93:73, 87:24, 64:60, 62:10, 56:53, 49:11, 48:26, 16:6, 80:100, 71:91, 28:84, 51:67, 21:42, 36:44, 9:31, 4:14, 1:38}
+snakes_and_ladders = {98:78, 95:75, 93:73, 87:24, 64:60, 62:10, 56:53, 49:11, 48:26, 16:6, 
+		      80:100, 71:91, 28:84, 51:67, 21:42, 36:44, 9:31, 4:14, 1:38}
 max_turns_per_game = 1000
 
 
@@ -16,20 +16,22 @@ def play():
         if position in snakes_and_ladders:
             position = snakes_and_ladders[position]
         turns += 1
-	return turns
-
+    return turns
 
 # Gets data on n games
 def get_data(n):
-    data = [play() for i in range(n)]
-    freq_count = [i/100 for i in collections.Counter(data.sort())]
-    return counter.items()
+    data = [play() for _ in range(n)]
+    freq = [data.count(i) for i in set(data)]
+    data = list(set(data))
+    return {'data': data, 'freq': freq}
 
 
-def make_table(data):
-    plt.title('Percent chance of finishing a game in n-moves')
+# Makes a frequency graph, showing how often a game lasts n turns
+def make_table(dict_of_data):
+    data = dict_of_data['data']
+    freq = dict_of_data['freq']
+    plt.title('Probability of finishing a game in n-moves')
     plt.xlabel('Number of Moves')
-    plt.ylabel('Percent Chance')
-    plt.plot(*zip(*data))
+    plt.ylabel('Probability')
+    plt.plot(data, freq)
     plt.show()
-    plt.hist(data, cumulative=True)
