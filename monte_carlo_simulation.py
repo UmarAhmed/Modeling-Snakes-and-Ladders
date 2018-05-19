@@ -12,12 +12,11 @@ def play():
     turns = 0
     while position < 100 and turns < max_turns_per_game:
         position += random.randint(1, 6)
-     # Check for snakes and ladders
-    if position in snakes_and_ladders:
+        # Check for snakes and ladders
+        if position in snakes_and_ladders:
             position = snakes_and_ladders[position]
-    turns += 1
-	
-    return turns
+        turns += 1
+	return turns
 
 
 # Gets data on n games
