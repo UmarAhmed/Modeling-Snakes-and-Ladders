@@ -1,3 +1,5 @@
+' Simulates a game of snakes and ladders and produces a frequency graph '
+
 import random
 from matplotlib import pyplot as plt
  
@@ -18,20 +20,22 @@ def play():
         turns += 1
     return turns
 
+
 # Gets data on n games
 def get_data(n):
     data = [play() for _ in range(n)]
     freq = [data.count(i) for i in set(data)]
     data = list(set(data))
-    return {'data': data, 'freq': freq}
+    mean = sum(data) / n
+    mode = max(set(data), key=data.count)
+    return {'data': data, 'freq': freq, 'mean': mean, 'mode': mode}
 
 
 # Makes a frequency graph, showing how often a game lasts n turns
-def make_table(dict_of_data):
-    data = dict_of_data['data']
-    freq = dict_of_data['freq']
-    plt.title('Probability of finishing a game in n-moves')
-    plt.xlabel('Number of Moves')
-    plt.ylabel('Probability')
-    plt.plot(data, freq)
+def make_graph(dict_of_data):
+    plt.title('Monte Carlo Simulation')
+    plt.xlabel('Length of game')
+    plt.ylabel('Frequency')
+    plt.plot(dict_of_data['data'], dict_of_data['freq'])
     plt.show()
+
