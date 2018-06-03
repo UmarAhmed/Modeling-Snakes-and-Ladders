@@ -54,17 +54,15 @@ def make_graph(n):
     v = np.array([1] + [0] * 100)
     probs = [calc_prob(matrix, i, v) for i in range(n)]
     plt.plot(np.arange(1, n), np.diff(probs), color='blue')
-    plt.xlabel('Length of game')
+    plt.xlabel('Turns')
     plt.ylabel('Probability')
-    plt.title('Snakes and Ladders - Markov Chains')
+    plt.title('Markov Chain Probability Distribution')
     plt.show()
 
 
 def get_expected_dist():
     # E(k) = (I + M + M**2 + ...)[1] = (I - M)**-1[1]
-    v = np.array([1] + 99 * [0])
     matrix = get_matrix()
     one = np.array([1] * 100)
     expected_dist =  np.linalg.inv(np.identity(100) - matrix[:100, :100]).T @ one
     return expected_dist
-
